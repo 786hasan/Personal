@@ -1,0 +1,167 @@
+<p class="text-info">
+    <h3>Bootstrap Input</h3>
+
+    <p class="text-info">
+        Bootstrap has limited support for built-in input controls. The main control it provides is <b>Typeahead</b>, which is a flexible and nice-looking auto-complete plug-in encapsulated in the <b>btst-typeahead</b> directive.</p>
+
+    <p class="text-info">
+        Boostrap also provides styles for grouping controls. The <b>btst-numeric-input</b>
+        directive uses this feature to implement a numeric input control that consists of an input element and buttons for increasing or decreasing the current value.</p>
+
+    <p class="text-info">
+        The date input controls on this page look like plain text in IE, but Chrome enhances them automatically and provides a drop-down calendar and spinners for editing the dates..
+    </p>
+
+    <!-- from, to, when -->
+    <table>
+        <tr>
+            <td><b>Leaving from:</b>
+            </td>
+            <td><b>Departure date:</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <btst-typeahead value="trip.from" min-length="2" source-fn="taSource" matcher="taMatcher" highlighter="taHighlighter" required></btst-typeahead>
+            </td>
+            <td>
+                <input ng-model="trip.departDate" class="input-medium" type="date" required />
+            </td>
+        </tr>
+        <tr>
+            <td><b>Going to:</b>
+            </td>
+            <td><b>Return date:</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <btst-typeahead value="trip.to" min-length="2" source-fn="taSource" matcher="taMatcher" highlighter="taHighlighter" required></btst-typeahead>
+            </td>
+            <td>
+                <input ng-model="trip.returnDate" class="input-medium" type="date" min="{{trip.departDate}}" required />
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <!-- passenger counts -->
+    <table>
+        <tr>
+            <td><b>Adults:</b>
+            </td>
+            <td><b>Seniors:</b>
+            </td>
+            <td><b>Children:</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <btst-numeric-input value="trip.adults" min="0" max="5"></btst-numeric-input>
+            </td>
+            <td>
+                <btst-numeric-input value="trip.seniors" min="0" max="5"></btst-numeric-input>
+            </td>
+            <td>
+                <btst-numeric-input value="trip.children" min="0" max="5"></btst-numeric-input>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <!-- radio buttons for flight class and checkboxes for extras -->
+    <table>
+        <tr>
+            <td><b>Class</b>
+            </td>
+            <td><b>Extras</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="btn-group" data-toggle="buttons-radio">
+                    <btst-toggle-button selected="setTripClass('economy')" active="{{trip.class== 'economy'}}">Economy</btst-toggle-button>
+                    <btst-toggle-button selected="setTripClass('business')" active="{{trip.class=='business'}}">Business</btst-toggle-button>
+                    <btst-toggle-button selected="setTripClass('first')" active="{{trip.class=='first'}}">First</btst-toggle-button>
+                </div>
+            </td>
+            <td>
+                <div class="btn-group" data-toggle="buttons-checkbox">
+                    <btst-toggle-button changed="toggleTripExtra(1)" active="{{getTripExtra(1)}}">Hotel</btst-toggle-button>
+                    <btst-toggle-button changed="toggleTripExtra(2)" active="{{getTripExtra(2)}}">Car</btst-toggle-button>
+                    <btst-toggle-button changed="toggleTripExtra(4)" active="{{getTripExtra(4)}}">Insurance</btst-toggle-button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <p />
+    <p />
+
+    <div class="alert alert-block">
+        <h4>Trip Summary</h4>
+
+        <p>
+            Current trip is from <span class="bound">{{trip.from}}</span>, on <span class="bound">{{trip.departDate | date:'shortDate' }}</span>
+            <br />to <span class="bound">{{trip.to}}</span>, returning on <span class="bound">{{trip.returnDate | date:'shortDate' }}</span>,
+            <br />for
+            <span class="bound">
+            <ng-pluralize 
+                count="trip.adults + trip.seniors + trip.children" 
+                when="{ '0': 'nobody', 'one': 'one person', 'other': '{} people'}" />
+        </span>.</p>
+        <p>
+            Class: <span class="bound">{{trip.class}}</span>.
+            <br />Extras: <span class="bound">
+            <span ng-show="getTripExtra(1)">hotel</span>
+            <span ng-show="getTripExtra(2)">car</span>
+            <span ng-show="getTripExtra(4)">insurance</span>
+            <span ng-show="trip.extras == 0">** no extras selected **</span>
+            </span>
+        </p>
+        <p>
+            <button class="btn btn-primary" onclick="alert('Sorry, flight Search not implemented.')" ng-disabled="!trip.from || !trip.to || !trip.departDate || !trip.returnDate || trip.adults + trip.seniors + trip.children == 0">
+                <i class="icon-plane icon-white"></i> Search for flights...
+            </button>
+        </p>
+    </div>
+
+</p>
+
+<h3>Bootstrap Commands</h3>
+
+<p class="text-info">Bootstrap provides a simple drop-down class that can be used to implement simple dropdowns as well as menu systems. Bootstrap dropdowns do not support nested menu items.</p>
+
+<p class="text-info">Here is a simple menu:</p>
+
+<div>
+    <btst-menu header="Navigate">
+        <btst-menu-item href="#/home">Home</btst-menu-item>
+        <btst-menu-item href="#/bootstrap/input">Input</btst-menu-item>
+        <btst-menu-item class="disabled">Commands</btst-menu-item>
+        <btst-divider/>
+        <btst-menu-item href="#/bootstrap/layout">Layout</btst-menu-item>
+    </btst-menu>
+    <btst-menu header="Commands">
+        <btst-menu-item command="say('home')">Home</btst-menu-item>
+        <btst-menu-item command="say('input')">Input</btst-menu-item>
+        <btst-menu-item command="say('commands')">Commands</btst-menu-item>
+        <btst-divider/>
+        <btst-menu-item command="say('layout')">Layout</btst-menu-item>
+    </btst-menu>
+</div>
+
+<p />
+<p class="text-info">And here is a drop-down:</p>
+
+<p>
+    <btst-menu header="Airports">
+        <btst-menu-item ng-repeat="ap in airports | limitTo:6" href="#/google/maps/{{ap.code}}">
+            <b>{{ap.code}}</b> - {{ap.name}}
+            <br /><i>{{ap.city}}, {{ap.state}}</i>
+        </btst-menu-item>
+    </btst-menu>
+</p>
+</p>

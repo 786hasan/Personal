@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="storeApp">
+<head>
+<link href="css/bootstrap.css" />
+<link href="css/app.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" ></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
+    
+    <!-- Bootstrap -->
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css"/>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js" type="text/javascript" ></script>
+
+
+     <!-- directives -->
+<script src="js/services/store.js"></script>
+<script src="js/services/product.js"></script>
+<script src="js/services/ShoppingCart.js"></script>
+     <!-- directives -->
+<script src="js/directives/directives.js"></script>
+<script src="js/directives/btsDctv.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/storeController.js"></script>
+
+
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <h1 class="well" >                
+                </h1>
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+
+
+
+  </body>
+</html>
